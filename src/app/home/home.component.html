@@ -1,0 +1,85 @@
+<app-header></app-header>
+
+
+<div class="tbl-data user">
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="firstName" matSortDirection="asc"
+        aria-describedby="dataSource" matSortDisableClear>
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef class="checkbox" id="check-box">
+                <mat-checkbox color="primary" (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row" class="checkbox">
+                <mat-checkbox color="primary" (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by firstName" class="name"
+                id="firstName">
+                First Name
+            </th>
+            <td mat-cell *matCellDef="let element" class="name">
+                {{element.firstName}}
+            </td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by lastName" class="email"
+                id="lastName">
+                Last Name </th>
+            <td mat-cell *matCellDef="let element" class="email">
+                {{element.lastName}}
+            </td>
+        </ng-container>
+
+        <!-- Role Column -->
+        <ng-container matColumnDef="class">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by class" class="role"
+                id="class">
+                Class
+            </th>
+            <td mat-cell *matCellDef="let element" class="role">
+                {{ element.class}}
+            </td>
+        </ng-container>
+
+        <!-- Role Column -->
+        <ng-container matColumnDef="rollNumber">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by rollNumber"
+                class="role" id="rollNumber">
+                Roll Number
+            </th>
+            <td mat-cell *matCellDef="let element" class="role">
+                {{ element.rollNumber}}
+            </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="action-btns" id="action-btns"> </th>
+            <td mat-cell *matCellDef="let element" class="action-btns">
+
+                <button mat-icon-button aria-label="icon button with edit" matTooltip="Edit">
+                    <mat-icon matPrefix color="accent">edit</mat-icon>
+                </button>
+
+                <button mat-icon-button aria-label="icon button with delete" class="delete-btn" matTooltip="Delete">
+                    <mat-icon matPrefix>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements"
+        class="user-pagination">
+    </mat-paginator>
+</div>
