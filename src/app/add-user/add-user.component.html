@@ -60,6 +60,21 @@
                 </mat-form-field>
             </div>
         </div>
+        <div fxLayout.xs="column" fxLayoutAlign="space-between">
+            <div fxFlex.xs="100%" fxFlex="45%">
+                <mat-form-field class="full-width" appearance="standard">
+                    <mat-label>Roll Number</mat-label>
+                    <input matInput (keydown.space)="$event.preventDefault();" [maxlength]="maxChar"
+                        placeholder="Enter Roll Number" name="Mail Id" formControlName="rollNumber" required
+                        autocomplete="off" #email>
+                    <mat-hint align="end" *ngIf="addStudentForm.controls['rollNumber'].touched">
+                        <span *ngIf="addStudentForm.controls['rollNumber'].errors?.required">
+                            Roll Number is required.
+                        </span>
+                    </mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
     </mat-dialog-content>
     <mat-dialog-actions align="center">
         <button type="button" mat-stroked-button color="primary" (click)="closeDialog()">Cancel</button>
