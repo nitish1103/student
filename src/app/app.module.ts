@@ -1,12 +1,17 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
+import { AddUserComponent } from './add-user/add-user.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { CoursesComponent } from './courses/courses.component';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -36,9 +41,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgModule } from '@angular/core';
 import { RegisterComponent } from './register/register.component';
 import { RouterModule } from '@angular/router';
-import { EditUserComponent } from './edit-user/edit-user.component';
-import { AddUserComponent } from './add-user/add-user.component';
-import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 @NgModule({
   declarations: [
@@ -49,12 +51,14 @@ import { DeleteUserComponent } from './delete-user/delete-user.component';
     HeaderComponent,
     EditUserComponent,
     AddUserComponent,
-    DeleteUserComponent
+    DeleteUserComponent,
+    CoursesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    FlexLayoutModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,

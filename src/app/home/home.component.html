@@ -1,6 +1,14 @@
-<app-header></app-header>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="start" fxLayoutAlign.sm="start"
+    class="admin-mgmt-header" fxLayout.xs="column" fxLayout.sm="column"
+    [ngClass]="{'disable-operations': isLoading === true}">
+    <div class="search-form">
+        <h1>Student Management</h1>
 
-
+    </div>
+    <div class="users-btn">
+        <button mat-raised-button color="primary" (click)="openDialog()">Add New Student</button>
+    </div>
+</div>
 <div class="tbl-data user">
     <table mat-table [dataSource]="dataSource" matSort matSortActive="firstName" matSortDirection="asc"
         aria-describedby="dataSource" matSortDisableClear>
@@ -70,7 +78,8 @@
                     <mat-icon matPrefix color="accent">edit</mat-icon>
                 </button>
 
-                <button mat-icon-button aria-label="icon button with delete" class="delete-btn" matTooltip="Delete">
+                <button mat-icon-button aria-label="icon button with delete" class="delete-btn" matTooltip="Delete"
+                    (click)="userSingleDeleteDialog(element)">
                     <mat-icon matPrefix>delete</mat-icon>
                 </button>
             </td>

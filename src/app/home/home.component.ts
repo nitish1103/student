@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { map, startWith } from 'rxjs/operators';
 
+import { AddUserComponent } from '../add-user/add-user.component';
+import { DeleteUserComponent } from '../delete-user/delete-user.component';
 import { FormControl } from '@angular/forms';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
@@ -53,7 +55,7 @@ export class HomeComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatAutocompleteTrigger) autoCompleteInput!: MatAutocompleteTrigger;
 
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService, private readonly dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getStudents();
@@ -82,6 +84,30 @@ export class HomeComponent implements OnInit {
       this.dataSource.sort = this.sort;
     }, timeOutTime);
     this.isLoading = false;
+  }
+
+  userSingleDeleteDialog(selectedStudent: UserListModel) {
+    const dialogRef = this.dialog.open(DeleteUserComponent, { panelClass: 'custom-dialog-container-small', autoFocus: false, restoreFocus: false, data: { user: selectedStudent } });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== 'cancel') {
+        this.getStudents();
+        this.selection.clear();
+        this.searchQuery = '';
+      }
+    });
+  }
+
+  public openDialog() {
+    const dialogRef = this.dialog.open(AddUserComponent, {
+      panelClass: 'custom-dialog-container', autoFocus: false, restoreFocus: false
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== 'cancel') {
+        this.searchQuery = '';
+        this.selection.clear();
+        this.getStudents();
+      }
+    });
   }
 
 }
