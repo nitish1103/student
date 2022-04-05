@@ -5,8 +5,9 @@
 </mat-dialog-content>
 <mat-dialog-actions align="center">
     <button mat-stroked-button color="primary" (click)="closeDialog()">Cancel</button>
-    <button mat-raised-button color="primary">
-        <span>Delete</span>
+    <button mat-raised-button color="primary" (click)="deleteStudent()">
+        <span *ngIf="!isDeleting">Delete</span>
+        <span *ngIf="isDeleting">Deleting...</span>
     </button>
     <button mat-icon-button color="primary" class="popup-close-btn" (click)="closeDialog()">
         <mat-icon aria-hidden="false" aria-label="close" class="done">close</mat-icon>

@@ -6,11 +6,11 @@
                 <mat-form-field class="full-width" appearance="standard">
                     <mat-label>First Name</mat-label>
                     <input matInput placeholder="Enter First Name" [maxlength]="maxChar" name="firstname"
-                        formControlName="firstname" required autocomplete="off">
-                    <mat-hint align="end" *ngIf="addStudentForm.controls['firstname'].touched">
-                        <span *ngIf="addStudentForm.controls['firstname'].errors?.required">First Name is
+                        formControlName="name" required autocomplete="off">
+                    <mat-hint align="end" *ngIf="addStudentForm.controls['name'].touched">
+                        <span *ngIf="addStudentForm.controls['name'].errors?.required">First Name is
                             required.</span>
-                        <span *ngIf="addStudentForm.controls['firstname'].errors?.pattern">Leading/trailing whitespaces
+                        <span *ngIf="addStudentForm.controls['name'].errors?.pattern">Leading/trailing whitespaces
                             not
                             allowed.
                         </span>
@@ -20,11 +20,12 @@
             <div fxFlex.xs="100%" fxFlex="45%">
                 <mat-form-field class="full-width" appearance="standard">
                     <mat-label>Last Name</mat-label>
-                    <input matInput placeholder="Enter Last Name" [maxlength]="maxChar" name="lastname"
-                        formControlName="lastname" required autocomplete="off">
-                    <mat-hint align="end" *ngIf="addStudentForm.controls['lastname'].touched">
-                        <span *ngIf="addStudentForm.controls['lastname'].errors?.required">Last Name is required.</span>
-                        <span *ngIf="addStudentForm.controls['lastname'].errors?.pattern">Leading/trailing whitespaces
+                    <input matInput placeholder="Enter Last Name" [maxlength]="maxChar" name="last_name"
+                        formControlName="last_name" required autocomplete="off">
+                    <mat-hint align="end" *ngIf="addStudentForm.controls['last_name'].touched">
+                        <span *ngIf="addStudentForm.controls['last_name'].errors?.required">Last Name is
+                            required.</span>
+                        <span *ngIf="addStudentForm.controls['last_name'].errors?.pattern">Leading/trailing whitespaces
                             not
                             allowed.
                         </span>
@@ -52,10 +53,10 @@
             <div fxFlex.xs="100%" fxFlex="45%">
                 <mat-form-field class="full-width" appearance="standard">
                     <mat-label>Class</mat-label>
-                    <input matInput placeholder="Enter Class Name" [maxlength]="maxChar" name="class"
-                        formControlName="class" required autocomplete="off">
-                    <mat-hint align="end" *ngIf="addStudentForm.controls['class'].touched">
-                        <span *ngIf="addStudentForm.controls['class'].errors?.required">Class is required.</span>
+                    <input matInput placeholder="Enter Class Name" [maxlength]="maxChar" name="class_name"
+                        formControlName="class_name" required autocomplete="off">
+                    <mat-hint align="end" *ngIf="addStudentForm.controls['class_name'].touched">
+                        <span *ngIf="addStudentForm.controls['class_name'].errors?.required">Class is required.</span>
                     </mat-hint>
                 </mat-form-field>
             </div>
@@ -65,10 +66,10 @@
                 <mat-form-field class="full-width" appearance="standard">
                     <mat-label>Roll Number</mat-label>
                     <input matInput (keydown.space)="$event.preventDefault();" [maxlength]="maxChar"
-                        placeholder="Enter Roll Number" name="Mail Id" formControlName="rollNumber" required
+                        placeholder="Enter Roll Number" name="roll_number" formControlName="roll_number" required
                         autocomplete="off" #email>
-                    <mat-hint align="end" *ngIf="addStudentForm.controls['rollNumber'].touched">
-                        <span *ngIf="addStudentForm.controls['rollNumber'].errors?.required">
+                    <mat-hint align="end" *ngIf="addStudentForm.controls['roll_number'].touched">
+                        <span *ngIf="addStudentForm.controls['roll_number'].errors?.required">
                             Roll Number is required.
                         </span>
                     </mat-hint>
@@ -80,7 +81,12 @@
         <button type="button" mat-stroked-button color="primary" (click)="closeDialog()">Cancel</button>
         <button type="submit" [disabled]="!addStudentForm.valid || isCreating" cdkFocusInitial mat-raised-button
             color="primary">
-            Add Student
+            <span *ngIf="!isCreating">
+                Add Student
+            </span>
+            <span *ngIf="isCreating">
+                Add...
+            </span>
         </button>
     </mat-dialog-actions>
 </form>

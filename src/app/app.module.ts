@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
 import { CoursesComponent } from './courses/courses.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -16,6 +15,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { Interceptor } from './services/interceptor';
 import { LoginComponent } from './login/login.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -41,6 +41,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgModule } from '@angular/core';
 import { RegisterComponent } from './register/register.component';
 import { RouterModule } from '@angular/router';
+import { WarningComponent } from './warning/warning.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { RouterModule } from '@angular/router';
     EditUserComponent,
     AddUserComponent,
     DeleteUserComponent,
-    CoursesComponent
+    CoursesComponent,
+    WarningComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +91,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

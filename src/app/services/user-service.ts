@@ -1,8 +1,9 @@
-import { UserListModel, UserModel } from '../constant/constants';
+import { AddStudentModel, StudentListModel, StudentModel } from '../constant/constants';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -14,31 +15,25 @@ import { Observable } from 'rxjs';
  */
 export class UserService {
 
-    studentList: UserListModel[] = []
 
     constructor(private readonly httpClient: HttpClient) {
-        this.studentList = [
-            {
-                firstName: 'John',
-                lastName: 'Doe',
-                class: '2',
-                rollNumber: '12345'
-            },
-            {
-                firstName: 'Test',
-                lastName: 'User',
-                class: '3',
-                rollNumber: '12346'
-            }
-        ]
+    }
+
+
+    /**
+     * method to get list of all students
+     */
+    public getStudents(): Observable<StudentModel> {
+        const endpoint = 'api/student';
+        return this.httpClient.get<StudentModel>(`${environment.baseUrl}${endpoint}`);
     }
 
     /**
    * method to add student
    */
-    public addStudent(postData: Object): Observable<UserModel> {
-        const endPoint = 'Users/add';
-        return this.httpClient.post<UserModel>(`${endPoint}`, postData);
+    public addStudent(postData: Object): Observable<AddStudentModel> {
+        const endPoint = 'api/student';
+        return this.httpClient.post<AddStudentModel>(`${environment.baseUrl}${endPoint}`, postData);
     }
 
 
@@ -54,9 +49,9 @@ export class UserService {
     /**
      * method to delete student
      */
-    public deleteStudent(data: Object) {
-        const endPoint = 'Users/delete';
-        return this.httpClient.post(`${endPoint}`, data);
+    public deleteStudent(id: number) {
+        const endPoint = 'api/student';
+        return this.httpClient.delete(`${environment.baseUrl}${endPoint}/${id}`);
     }
 
 }

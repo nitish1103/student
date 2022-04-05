@@ -1,6 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
+import { AddStudentModel } from '../constant/constants';
+import { UserService } from '../services/user-service';
+import { WarningComponent } from '../warning/warning.component';
 
 @Component({
   selector: 'app-add-user',
@@ -15,15 +19,15 @@ export class AddUserComponent implements OnInit {
   nameRegEx = '^(?! )[A-Za-z0-9 ]*(?<! )$';
 
   addStudentForm = new FormGroup({
-    firstname: new FormControl('', [Validators.required, Validators.pattern(this.nameRegEx)]),
-    lastname: new FormControl('', [Validators.required, Validators.pattern(this.nameRegEx)]),
+    name: new FormControl('', [Validators.required, Validators.pattern(this.nameRegEx)]),
+    last_name: new FormControl('', [Validators.required, Validators.pattern(this.nameRegEx)]),
     email: new FormControl('', [Validators.required, Validators.pattern(this.emailRegEx)]),
-    class: new FormControl('', [Validators.required]),
-    rollNumber: new FormControl('')
+    class_name: new FormControl('', [Validators.required]),
+    roll_number: new FormControl('')
   });
 
   constructor(public dialog: MatDialog, public addUserDialogRef: MatDialogRef<AddUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { roleLength: number }) { }
+    private readonly userService: UserService) { }
 
   ngOnInit(): void {
   }
@@ -33,7 +37,28 @@ export class AddUserComponent implements OnInit {
   }
 
   public addStudent() {
+    this.isCreating = true;
+    this.addUserDialogRef.disableClose = true;
+    const data = this.addStudentForm.value;
+    this.userService.addStudent(data).subscribe((result: AddStudentModel) => {
+      if (result.success) {
+        this.addUserDialogRef.close('success');
+        this.warningDialog(result.message, 'success');
+      } else {
+        this.isCreating = false;
+      }
+    },
+      (error) => {
+        this.addUserDialogRef.close('error');
+        this.warningDialog('Something went wrong', 'warning');
+      });
+  }
 
+  warningDialog(messageString: string, styleClass: string) {
+    this.dialog.open(WarningComponent, {
+      panelClass: 'custom-dialog-container-small',
+      autoFocus: false, restoreFocus: false, data: { message: messageString, class: styleClass }
+    });
   }
 
 }

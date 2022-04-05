@@ -1,17 +1,32 @@
 export interface LoginModel {
-    succeeded: boolean;
+    success: boolean;
+    message: string;
+    token: string;
+    profile: {
+        name: string;
+        last_name: string;
+        email: string;
+        roll_number: string;
+        class_name: string;
+    }
+}
+
+export interface AddStudentModel {
+    success: boolean;
     message: string;
 }
 
-export interface UserModel {
-    succeeded: boolean;
+export interface StudentModel {
+    success: boolean;
     message: string;
-    data: UserListModel[]
+    data: StudentListModel[]
 }
 
-export interface UserListModel {
-    firstName: string;
-    lastName: string;
-    rollNumber: string;
-    class: string;
+export interface StudentListModel {
+    id: number;
+    name: string;
+    last_name: string;
+    email: string;
+    roll_number: string;
+    class_name: string;
 }

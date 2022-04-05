@@ -1,7 +1,7 @@
 <div class="box-form">
     <div class="left">
         <div class="overlay">
-            <h1>Hello Students</h1>
+            <h1>Hello Users</h1>
         </div>
     </div>
 
@@ -11,7 +11,7 @@
         <p>Don't have an account? Contact Admininstrator!!</p>
         <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
             <div class="inputs">
-                <input type="text" placeholder="user name" name="userName" formControlName="userName" required
+                <input type="text" placeholder="user name" name="email" formControlName="email" required
                     autocomplete="OFF">
                 <br>
                 <input type="password" placeholder="password" name="password" formControlName="password" required
@@ -19,7 +19,10 @@
             </div>
             <p class="error" *ngIf="isError">User Not Found!</p>
             <br>
-            <button>Login</button>
+            <button type="submit">
+                <span *ngIf="!isCreating">Login</span>
+                <span *ngIf="isCreating">Logging...</span>
+            </button>
         </form>
     </div>
 
